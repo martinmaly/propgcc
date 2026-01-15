@@ -125,6 +125,10 @@ static int postprocess_matches PARAMS((char ***, int));
 
 static char *make_quoted_replacement PARAMS((char *, int, char *));
 
+#if defined (HANDLE_MULTIBYTE)
+int wcwidth(wchar_t ucs);
+#endif
+
 /* **************************************************************** */
 /*								    */
 /*	Completion matching, from readline's point of view.	    */

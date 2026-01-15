@@ -48,6 +48,7 @@
 /* System-specific feature definitions and include files. */
 #include "rldefs.h"
 #include "rlmbutil.h"
+#include "rltty.h"
 
 /* Termcap library stuff. */
 #include "tcap.h"
@@ -76,6 +77,7 @@ static void cr PARAMS((void));
 #if defined (HANDLE_MULTIBYTE)
 static int _rl_col_width PARAMS((const char *, int, int));
 static int *_rl_wrapped_line;
+int wcwidth(wchar_t ucs);
 #else
 #  define _rl_col_width(l, s, e)	(((e) <= (s)) ? 0 : (e) - (s))
 #endif

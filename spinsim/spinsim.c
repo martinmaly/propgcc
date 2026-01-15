@@ -85,6 +85,7 @@ PasmVarsT PasmVars[8];
 void PrintOp(SpinVarsT *spinvars);
 void ExecuteOp(SpinVarsT *spinvars);
 char *FindChar(char *str, int32_t val);
+int32_t RunProp(int32_t maxloops);
 void Debug(void);
 void gdb(void);
 

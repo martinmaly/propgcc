@@ -51,9 +51,6 @@
 #endif
 
 #ifndef member
-#  ifndef strchr
-extern char *strchr ();
-#  endif
 #define member(c, s) ((c) ? ((char *)strchr ((s), (c)) != (char *)NULL) : 0)
 #endif
 

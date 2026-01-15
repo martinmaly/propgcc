@@ -48,6 +48,9 @@
 #  if defined (HAVE_MBSTATE_T) && defined (HAVE_MBSRTOWCS) && defined (HAVE_MBRTOWC) && defined (HAVE_MBRLEN) && defined (HAVE_WCWIDTH)
      /* system is supposed to support XPG5 */
 #    define HANDLE_MULTIBYTE      1
+#    if !defined (wcwidth)
+       extern int wcwidth (wchar_t);
+#    endif
 #  endif
 #endif
 

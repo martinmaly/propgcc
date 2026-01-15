@@ -9484,6 +9484,7 @@ $as_echo_n "checking build system compiler $CC_FOR_BUILD... " >&6; }
 # remove anything that might look like compiler output to our "||" expression
 rm -f conftest* a.out b.out a.exe a_out.exe
 cat >conftest.c <<EOF
+void exit(int);
 int
 main ()
 {
@@ -9516,6 +9517,7 @@ $as_echo_n "checking build system compiler $HOST_CC... " >&6; }
 # remove anything that might look like compiler output to our "||" expression
 rm -f conftest* a.out b.out a.exe a_out.exe
 cat >conftest.c <<EOF
+void exit(int);
 int
 main ()
 {
@@ -9549,6 +9551,7 @@ $as_echo_n "checking build system compiler $i... " >&6; }
 # remove anything that might look like compiler output to our "||" expression
 rm -f conftest* a.out b.out a.exe a_out.exe
 cat >conftest.c <<EOF
+void exit(int);
 int
 main ()
 {
@@ -9628,6 +9631,7 @@ if test "${gmp_cv_prog_exeext_for_build+set}" = set; then :
   $as_echo_n "(cached) " >&6
 else
   cat >conftest.c <<EOF
+void exit(int);
 int
 main ()
 {
@@ -9665,6 +9669,7 @@ if test "${gmp_cv_c_for_build_ansi+set}" = set; then :
   $as_echo_n "(cached) " >&6
 else
   cat >conftest.c <<EOF
+void exit(int);
 int
 main (int argc, char **argv)
 {
@@ -9700,6 +9705,8 @@ if test "${gmp_cv_check_libm_for_build+set}" = set; then :
   $as_echo_n "(cached) " >&6
 else
   cat >conftest.c <<EOF
+double log(double);
+void exit(int);
 int
 main ()
 {

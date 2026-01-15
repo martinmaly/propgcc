@@ -108,6 +108,8 @@ export BUGURL
 # configure options for propgcc
 #
 CONFIG_OPTIONS=--with-pkgversion=$(PROPGCC_VERSION) --with-bugurl=$(BUGURL) $(CFGCROSS)
+# Disable -Werror by default so older sources with noisy warnings build here
+CONFIG_OPTIONS += --disable-werror
 
 .PHONY:	all
 
@@ -233,7 +235,7 @@ $(BUILD)/gdb/gdb-built:	binutils gcc $(BUILD)/gdb/gdb-configured
 
 $(BUILD)/gdb/gdb-configured:	$(BUILD)/gdb/gdb-created
 	@$(ECHO) Configuring gdb
-	@$(CD) $(BUILD)/gdb; $(ROOT)/gdb/configure $(CFGCROSS) --target=propeller-elf --prefix=$(PREFIX) --with-system-gdbinit=$(PREFIX)/lib/gdb/gdbinit $(WITH_CURSES)
+	@$(CD) $(BUILD)/gdb; $(ROOT)/gdb/configure $(CFGCROSS) --target=propeller-elf --prefix=$(PREFIX) --with-system-gdbinit=$(PREFIX)/lib/gdb/gdbinit $(WITH_CURSES)  --disable-werror
 	@$(TOUCH) $@
 
 ###########
@@ -263,7 +265,7 @@ gdbstub:	lib gdb $(BUILD)/gdbstub/gdbstub-built
 
 $(BUILD)/gdbstub/gdbstub-built:	$(BUILD)/gdbstub/gdbstub-created
 	@$(ECHO) Building gdbstub
-	@$(MAKE) -C gdbstub BUILDROOT=$(BUILD)/gdbstub CC=$(CROSSCC)
+	@$(MAKE) -C gdbstub BUILDROOT=$(BUILD)/gdbstub CC=$(CROSSCC) PROPCC=$(PREFIX)/bin/propeller-elf-gcc LOAD=$(PREFIX)/bin/propeller-load
 	@$(ECHO) Installing gdbstub
 	@$(CP) -f $(BUILD)/gdbstub/gdbstub$(EXT) $(PREFIX)/bin/
 	@$(MKDIR) -p $(PREFIX)/lib/gdb

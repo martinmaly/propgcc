@@ -55,6 +55,13 @@
 #  endif /* !VOID_SIGHANDLER */
 #endif /* !RETSIGTYPE */
 
+/* On modern POSIX systems, signal handlers return void */
+#if !defined (VOID_SIGHANDLER) && defined (HAVE_POSIX_SIGNALS)
+#  define VOID_SIGHANDLER
+#  undef RETSIGTYPE
+#  define RETSIGTYPE void
+#endif
+
 #if defined (VOID_SIGHANDLER)
 #  define SIGHANDLER_RETURN return
 #else
@@ -63,7 +70,7 @@
 
 /* This typedef is equivalent to the one for Function; it allows us
    to say SigHandler *foo = signal (SIGKILL, SIG_IGN); */
-typedef RETSIGTYPE SigHandler ();
+typedef RETSIGTYPE SigHandler (int);
 
 #if defined (HAVE_POSIX_SIGNALS)
 typedef struct sigaction sighandler_cxt;

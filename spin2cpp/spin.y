@@ -11,7 +11,7 @@
 
 /* Yacc functions */
     void yyerror(char *);
-    int yylex();
+    int yylex(YYSTYPE*);
 
     extern int gl_errors;
 

@@ -42,6 +42,10 @@
 #include <stdio.h>
 #include <ctype.h>
 
+#if defined (HAVE_WCHAR_H)
+#  include <wchar.h>
+#endif
+
 /* System-specific feature definitions and include files. */
 #include "rldefs.h"
 #include "rlmbutil.h"

@@ -52,10 +52,11 @@ AST *ast_type_word, *ast_type_long, *ast_type_byte;
 struct preprocess gl_pp;
 
 int
-yylex()
+yylex(YYSTYPE *lvalp)
 {
     int c;
     c = getToken(&current->L, &current->ast);
+    if(lvalp){*lvalp = current->ast;}
     if (c == T_EOF)
         return 0;
     return c;
@@ -281,13 +282,14 @@ parseFile(const char *name)
     LastQ = NULL;
     for (Q = allparse; Q; Q = Q->next) {
         if (!strcmp(P->basename, Q->basename)) {
+            char *basename = P->basename;
             free(fname);
             free(P);
             fclose(f);
             if (gl_static) {
                 /* this is bad, we can't have two copies of an object */
                 ERROR(NULL, "multiple use of object %s not allowed in C mode",
-                      P->basename);
+                      basename);
             }
             return Q;
         }
